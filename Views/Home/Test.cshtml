@@ -1,0 +1,17 @@
+@model MyModel;
+
+<table class="table table-striped">
+    <tr>
+        <th>id</th>
+        <th>field 1</th>
+        <th>field 2</th>
+    </tr>
+    @foreach (Test item in Model.Tests)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Field1</td>
+            <td>@item.Field2</td>
+        </tr>
+    }
+</table>
