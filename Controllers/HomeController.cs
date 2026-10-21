@@ -11,10 +11,21 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Test(MyModel myModel)
+    /*     public IActionResult Test(MyModel myModel)
+        {
+            myModel.GetTests();
+            return View(myModel);
+        } */
+
+    [HttpPost]
+    public IActionResult Create(Create review)
     {
-        myModel.GetTests();
-        return View(myModel);
+        if (ModelState.IsValid)
+        {
+            return RedirectToAction("Index");
+        }
+
+        return View(review);
     }
 
 }

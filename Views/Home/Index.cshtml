@@ -1,32 +1,53 @@
-﻿<div>
-    <h1 class="text-primary">Boilerplate Template</h1>
-    <h2 class="text-primary">INET2005 Web Appplication Programming I</h2>
-    <p>
-        This Boilerplate is a scaled version of the web app generated with "dotnet new mvc" with all unnecessary code
-        removed.
-    </p>
+﻿@model Create
 
-    <h3>Boilerplate template usage:</h3>
-    <ol>
-        <li>change name of Boilerplate.csproj to [YOUR PROJECT NAME].csproj</li>
-        <li>using VS Code, find and replace all occurances of the name Boilerplate throughout the code and config files
-            and change to YOUR PROJECT NAME</li>
-        <li>change name of project folder itself to YOUR PROJECT NAME</li>
-    </ol>
+<div>
+    <h1 class="text-primary">Potato</h1>
+    <img src="~/Images/Potato.jpg" alt="Sample Photo" />
+    <h6 class="text-pr">a simple potato nothing special.</h6>
 
-    <h3>MySQL usage:</h3>
-    <ol>
-        <li>Database credentials are:</li>
-        <ul>
-            <li>Username: root</li>
-            <li>Password: secret</li>
-        </ul>
-        <li>Access adminer via <a href="http://localhost:8080">http://localhost:8080</a> and enter in username / password</li>
-    </ol>
 
-    <h3>Test Page</h3>
-    <p>
-        A test page is included to demonstrate database connectivity. Click <a asp-controller="Home" asp-action="Test">here</a> to view the test
-        page. This should be deleted from your project once you have confirmed database connectivity.
-    </p>
-</div>
+    <h3 class="pt-5">Leave a review</h3>
+    <form asp-action="Create" method="post">
+
+        <div id="star-rating">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+        </div>
+
+        <input type="hidden" id="Rating" name="Rating" value="0" />
+
+        <div class="mt-3">
+            <textarea name="Comment" class="form-control"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">
+            Submit
+        </button>
+
+    </form>
+
+    <script>
+            let stars = document.querySelectorAll(".star");
+            let ratingInput = document.getElementById("Rating");
+
+            stars.forEach(star => {
+                star.addEventListener("click", (e) => {
+
+                    let rating = e.target.dataset.value;
+
+                    ratingInput.value = rating;
+
+                    stars.forEach(e => e.classList.remove("selected"));
+
+                    stars.forEach(e => {
+                        if (e.dataset.value <= rating) {
+                            e.classList.add("selected");
+                        }
+                    });
+                });
+            });
+    </script>
+

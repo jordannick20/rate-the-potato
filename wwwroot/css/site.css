@@ -1,3 +1,13 @@
 ﻿body {
   margin-top: 30px;
 }
+
+.star {
+  font-size: 30px;
+  color: gray;
+  cursor: pointer;
+}
+
+.star.selected {
+  color: rgb(194, 202, 37);
+}

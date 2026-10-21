@@ -6,18 +6,14 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-CREATE TABLE IF NOT EXISTS `tblTest` (
+CREATE TABLE IF NOT EXISTS `tblreview` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `field1` int(10) NOT NULL,
-  `field2` varchar(100) NOT NULL,
+  `rating` int(5) NOT NULL,
+  `first` varchar(30) NOT NULL,
+  `last` varchar(30) NOT NULL,
+  `comment` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+);
 
---
--- Dumping data for table `tblGrades`
---
-
-INSERT INTO `tblTest` (`id`, `field1`, `field2`) VALUES
-(1, 2, 'test1'),
-(2, 8, 'test2'),
-(3, 3, 'test3');
+INSERT INTO `tblreview` (`id`, `rating`, `first`, `last`, `comment`) VALUES
+(1, 2, 'jordan', 'nicholson', 'Wow what a cool potato')
