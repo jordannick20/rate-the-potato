@@ -11,14 +11,8 @@ public class HomeController : Controller
         return View();
     }
 
-    /*     public IActionResult Test(MyModel myModel)
-        {
-            myModel.GetTests();
-            return View(myModel);
-        } */
-
     [HttpPost]
-    public IActionResult Create(Create review)
+    public IActionResult Review(Review review)
     {
         if (ModelState.IsValid)
         {
