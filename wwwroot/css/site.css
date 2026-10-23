@@ -11,3 +11,11 @@
 .star.selected {
   color: rgb(194, 202, 37);
 }
+
+.lastforreview {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #0d6efd;
+  margin-bottom: 20px;
+  width: 50%;
+
+}

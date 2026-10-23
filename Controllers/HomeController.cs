@@ -8,14 +8,30 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        var model = new ReviewModel();
+        model.GetReviews();
+        return View(model);
     }
 
-    [HttpPost]
-    public IActionResult Review(Review review)
+    [HttpGet]
+    public IActionResult GetReview(Review review)
     {
         if (ModelState.IsValid)
         {
+            var model = new ReviewModel();
+            model.AddReview(review);
+            return RedirectToAction("Index");
+        }
+
+        return View(review);
+    }
+    [HttpPost]
+    public IActionResult AddReview(Review review)
+    {
+        if (ModelState.IsValid)
+        {
+            var model = new ReviewModel();
+            model.AddReview(review);
             return RedirectToAction("Index");
         }
 

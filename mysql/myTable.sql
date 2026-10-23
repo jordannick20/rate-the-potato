@@ -7,7 +7,7 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `tblreview` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int(100) NOT NULL AUTO_INCREMENT,
   `rating` int(5) NOT NULL,
   `first` varchar(30) NOT NULL,
   `last` varchar(30) NOT NULL,

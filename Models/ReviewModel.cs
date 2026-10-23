@@ -4,11 +4,11 @@ using Superpower.Parsers;
 
 namespace Boilerplate.Models;
 
-public class MyModel
+public class ReviewModel
 {
     private string CONNECTION_STRING;
 
-    public MyModel()
+    public ReviewModel()
     {
         Env.Load();
         CONNECTION_STRING = Env.GetString("CONNECTION_STRING");
@@ -19,6 +19,8 @@ public class MyModel
     public void GetReviews()
     {
         using var connection = new MySqlConnection(CONNECTION_STRING);
+
+        Reviews.Clear();
 
         connection.Open();
 
@@ -41,7 +43,7 @@ public class MyModel
         }
     }
 
-    public async Task AddReview(Review Reviews)
+    public void AddReview(Review review)
     {
         using var Connection = new MySqlConnection(CONNECTION_STRING);
 
@@ -49,15 +51,15 @@ public class MyModel
 
         using var Command = Connection.CreateCommand();
 
-        Command.CommandText = "INSERT INTO tblGrades (categoryID,courseName,courseDescription,grade,comments) VALUES (@categoryID,@courseName,@courseDescription,@grade,@comments)";
+        Command.CommandText = "INSERT INTO tblreview (rating,first,last,comment) VALUES (@rating,@first,@last,@comment)";
 
-        Command.Parameters.AddWithValue("@id", Reviews.Id);
-        Command.Parameters.AddWithValue("@rating", Reviews.Rating);
-        Command.Parameters.AddWithValue("@first", Reviews.First);
-        Command.Parameters.AddWithValue("@last", Reviews.Last);
-        Command.Parameters.AddWithValue("@comment", Reviews.Comment);
+        Command.Parameters.AddWithValue("@rating", review.Rating);
+        Command.Parameters.AddWithValue("@first", review.First);
+        Command.Parameters.AddWithValue("@last", review.Last);
+        Command.Parameters.AddWithValue("@comment", review.Comment);
 
-        await Command.ExecuteNonQueryAsync();
+        Command.ExecuteNonQuery();
+
     }
 
 }
