@@ -13,29 +13,29 @@ public class HomeController : Controller
         return View(model);
     }
 
-    [HttpGet]
-    public IActionResult GetReview(Review review)
-    {
-        if (ModelState.IsValid)
-        {
-            var model = new ReviewModel();
-            model.AddReview(review);
-            return RedirectToAction("Index");
-        }
-
-        return View(review);
-    }
     [HttpPost]
     public IActionResult AddReview(Review review)
     {
-        if (ModelState.IsValid)
+        if (review.Comment == null)
         {
-            var model = new ReviewModel();
-            model.AddReview(review);
             return RedirectToAction("Index");
         }
 
-        return View(review);
+        if (review.First == null)
+        {
+            review.First = "Anonyomous";
+            review.Last = "";
+        }
+        if (review.Last == null)
+        {
+            review.First = "Anonyomous";
+            review.Last = "";
+        }
+        var model = new ReviewModel();
+        model.AddReview(review);
+        model.GetReviews();
+        return View("Index", model);
+
     }
 
 }

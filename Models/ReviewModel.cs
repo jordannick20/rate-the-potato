@@ -1,6 +1,5 @@
 using DotNetEnv;
 using MySqlConnector;
-using Superpower.Parsers;
 
 namespace Boilerplate.Models;
 
@@ -25,7 +24,7 @@ public class ReviewModel
         connection.Open();
 
         using var command = connection.CreateCommand();
-        command.CommandText = "SELECT * FROM tblreview";
+        command.CommandText = "SELECT * FROM tblreview ORDER BY id DESC";
 
         using var reader = command.ExecuteReader();
 
@@ -45,6 +44,7 @@ public class ReviewModel
 
     public void AddReview(Review review)
     {
+
         using var Connection = new MySqlConnection(CONNECTION_STRING);
 
         Connection.Open();

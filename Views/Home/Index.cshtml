@@ -10,26 +10,26 @@
     <form asp-action="AddReview" method="post">
 
         <div id="star-rating">
-            <span class="star" data-value="1">&#9733;</span>
-            <span class="star" data-value="2">&#9733;</span>
-            <span class="star" data-value="3">&#9733;</span>
-            <span class="star" data-value="4">&#9733;</span>
-            <span class="star" data-value="5">&#9733;</span>
+            <span class="star" id="first" data-value="1">&#9733;</span>
+            <span class="star" id="second" data-value="2">&#9733;</span>
+            <span class="star" id="third" data-value="3">&#9733;</span>
+            <span class="star" id="fourth" data-value="4">&#9733;</span>
+            <span class="star" id="fifth" data-value="5">&#9733;</span>
         </div>
 
         <input type="hidden" id="Rating" name="Rating" value="0" />
 
-        <h6 class="pt-3">First Name:</h6>
+        <h6 class="pt-5">First Name:</h6>
         <div class="mt-3">
             <input name="First" maxlength="30" class="w-50"></input>
         </div>
 
-        <h6 class="pt-3">Last Name:</h6>
+        <h6 class="pt-5">Last Name:</h6>
         <div class="mt-3">
             <input name="Last" maxlength="30" class="w-50"></input>
         </div>
 
-        <h6 class="pt-3">Review : <label class="text-secondary">(100 char max)</label></h6>
+        <h6 class="pt-5">Review : <label class="">(100 char max)</label></h6>
         <div class="mt-3">
             <textarea name="Comment" maxlength="100" class="w-50"></textarea>
         </div>
@@ -37,32 +37,33 @@
         <button type="submit" class="flex flex-wrap btn btn-primary mt-3 mb-5">
             Submit
         </button>
-        <br />
-
         
+        <br />
+        <h3>Comments:</h3>
+
         @foreach (Review review in Model.Reviews)
         {
             @for (int i = 1; i <= 5; i++)
             {
                 if (i <= review.Rating)
                 {
-                    <span style="color:rgb(194, 202, 37);">&#9733;</span>
+                    <span style="color:gold;">&#9733;</span>
                 }
                 else
                 {
                     <span style="color:gray">&#9733;</span>
                 }
             }
-            <h6>@review.Comment</h6>
-            <h6 class="lastforreview">
-                @review.First @review.Last
-            </h6>
-            
+            <div id="comcontainer">
+                <h6>@review.Comment</h6>
+                <h6 class="lastforreview">
+                    @review.First @review.Last
+                </h6>
+            </div>
+                
         }
+
     </form>
-
-
-
 
     <script>
             let stars = document.querySelectorAll(".star");
@@ -74,7 +75,7 @@
                     let rating = e.target.dataset.value;
 
                     ratingInput.value = rating;
-
+ 
                     stars.forEach(e => e.classList.remove("selected"));
 
                     stars.forEach(e => {
@@ -83,6 +84,32 @@
                         }
                     });
                 });
+            });
+            stars.forEach(star => {
+
+                star.addEventListener("mouseover", (e) => {
+
+                    let rating = e.target.dataset.value;
+
+                    stars.forEach(e => {
+                        e.style.color = e.dataset.value <= rating ? "gold" : "grey";
+                    });
+                });
+
+                star.addEventListener("mouseout", (e) => {
+
+                    stars.forEach(e => {
+
+                        if (e.classList.contains("selected")) {
+                            e.style.color = "gold";
+                        } else {
+                            e.style.color = "grey";
+                        }
+
+                    });
+
+                });
+
             });
     </script>
 
