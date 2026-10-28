@@ -34,7 +34,7 @@ public class HomeController : Controller
         var model = new ReviewModel();
         model.AddReview(review);
         model.GetReviews();
-        return View("Index", model);
+        return RedirectToAction("Index", model);
 
     }
 
