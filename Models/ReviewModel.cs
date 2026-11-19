@@ -17,28 +17,35 @@ public class ReviewModel
 
     public void GetReviews()
     {
-        using var connection = new MySqlConnection(CONNECTION_STRING);
-
-        Reviews.Clear();
-
-        connection.Open();
-
-        using var command = connection.CreateCommand();
-        command.CommandText = "SELECT * FROM tblreview ORDER BY id DESC";
-
-        using var reader = command.ExecuteReader();
-
-        while (reader.Read())
+        try
         {
-            Reviews.Add(new Review
-            {
-                Id = reader.GetInt32("id"),
-                Rating = reader.GetInt32("rating"),
-                First = reader.GetString("first"),
-                Last = reader.GetString("last"),
-                Comment = reader.GetString("comment")
+            using var connection = new MySqlConnection(CONNECTION_STRING);
 
-            });
+            Reviews.Clear();
+
+            connection.Open();
+
+            using var command = connection.CreateCommand();
+            command.CommandText =
+                "SELECT * FROM tblreview ORDER BY id DESC";
+
+            using var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Reviews.Add(new Review
+                {
+                    Id = reader.GetInt32("id"),
+                    Rating = reader.GetInt32("rating"),
+                    First = reader.GetString("first"),
+                    Last = reader.GetString("last"),
+                    Comment = reader.GetString("comment")
+                });
+            }
+        }
+        catch
+        {
+            Reviews = new List<Review>();
         }
     }
 
