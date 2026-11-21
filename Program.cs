@@ -1,9 +1,14 @@
+using DotNetEnv;
 using Microsoft.Data.Sqlite;
 var builder = WebApplication.CreateBuilder(args);
 
-var dbPath = Path.Combine("/tmp", "app.db");
+Env.Load();
 
-using (var connection = new SqliteConnection($"Data Source={dbPath}"))
+string connectionString = Env.GetString("CONNECTION_STRING");
+
+
+
+using (var connection = new SqliteConnection(connectionString))
 {
     connection.Open();
 
