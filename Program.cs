@@ -1,7 +1,9 @@
 using Microsoft.Data.Sqlite;
 var builder = WebApplication.CreateBuilder(args);
 
-using (var connection = new SqliteConnection("Data Source=app.db"))
+var dbPath = Path.Combine("/tmp", "app.db");
+
+using (var connection = new SqliteConnection($"Data Source={dbPath}"))
 {
     connection.Open();
 
