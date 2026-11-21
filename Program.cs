@@ -1,4 +1,26 @@
+using Microsoft.Data.Sqlite;
 var builder = WebApplication.CreateBuilder(args);
+
+using (var connection = new SqliteConnection("Data Source=app.db"))
+{
+    connection.Open();
+
+    var command = connection.CreateCommand();
+
+    command.CommandText =
+    @"
+    CREATE TABLE IF NOT EXISTS tblreview
+    (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        rating INTEGER,
+        first TEXT,
+        last TEXT,
+        comment TEXT
+    );
+    ";
+
+    command.ExecuteNonQuery();
+}
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

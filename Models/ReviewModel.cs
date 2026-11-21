@@ -1,5 +1,5 @@
 using DotNetEnv;
-using MySqlConnector;
+using Microsoft.Data.Sqlite;
 
 namespace Boilerplate.Models;
 
@@ -19,7 +19,7 @@ public class ReviewModel
     {
         try
         {
-            using var connection = new MySqlConnection(CONNECTION_STRING);
+            using var connection = new SqliteConnection(CONNECTION_STRING);
 
             Reviews.Clear();
 
@@ -35,11 +35,11 @@ public class ReviewModel
             {
                 Reviews.Add(new Review
                 {
-                    Id = reader.GetInt32("id"),
-                    Rating = reader.GetInt32("rating"),
-                    First = reader.GetString("first"),
-                    Last = reader.GetString("last"),
-                    Comment = reader.GetString("comment")
+                    Id = reader.GetInt32(0),
+                    Rating = reader.GetInt32(1),
+                    First = reader.GetString(2),
+                    Last = reader.GetString(3),
+                    Comment = reader.GetString(4)
                 });
             }
         }
@@ -52,7 +52,7 @@ public class ReviewModel
     public void AddReview(Review review)
     {
 
-        using var Connection = new MySqlConnection(CONNECTION_STRING);
+        using var Connection = new SqliteConnection(CONNECTION_STRING);
 
         Connection.Open();
 
